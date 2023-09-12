@@ -14,8 +14,9 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use (cookieParser())
+const mogo = 'mongodb+srv://ndefoago:Computer1234567890@management.ghxfhjh.mongodb.net/'
 
-mongoose.connect('mongodb+srv://ndefoago:Computer1234567890@management.ghxfhjh.mongodb.net/');
+mongoose.connect(mogo);
 
 // token verifyUser
 const verifyUser = (req, res , next) => {
@@ -37,8 +38,7 @@ app.get('/home',verifyUser,(req, res) =>{
 
 app.post("/login",(req, res)=>{
   const { email,  password } = req.body;
-  RegisterModel.findOne({ email: email })
-    .then(user => {
+  RegisterModel.findOne({ email: email })    .then(user => {
       if (user) { 
         bcrypt.compare(password,user.password,(err,response) => {
           if(response){
